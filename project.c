@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
- 
+
 // A Queue Node (Queue is implemented using Doubly Linked List)
 typedef struct QNode {
     struct QNode *prev, *next;
@@ -178,26 +178,31 @@ void ReferencePage(Queue* queue, Hash* hash, unsigned pageNumber)
 // Driver program to test above functions
 int main()
 {
+	int x,y,z,i;
+	printf("how many pages you want to hold: ");
+	scanf("%d",&x);
     // Let cache can hold 4 pages
-    Queue* q = createQueue(4);
- 
+    Queue* q = createQueue(x);
+ 	printf("how many pages you want to request: ");
+ 	scanf("%d",&y);
     // Let 10 different pages can be requested (pages to be
     // referenced are numbered from 0 to 9
-    Hash* hash = createHash(10);
+    Hash* hash = createHash(y);
  
     // Let us refer pages 1, 2, 3, 1, 4, 5
-    ReferencePage(q, hash, 1);
-    ReferencePage(q, hash, 2);
-    ReferencePage(q, hash, 3);
-    ReferencePage(q, hash, 1);
-    ReferencePage(q, hash, 4);
-    ReferencePage(q, hash, 5);
- 
-    // Let us print cache frames after the above referenced pages
-    printf("%d ", q->front->pageNumber);
-    printf("%d ", q->front->next->pageNumber);
-    printf("%d ", q->front->next->next->pageNumber);
-    printf("%d ", q->front->next->next->next->pageNumber);
- 
-    return 0;
+    while(1)
+    {
+    	printf("refer pages or enter -1 to quit: ");
+		scanf("%d",&z);
+		if(z==-1)
+		{
+			for(i=0;i<x;i++)
+			{
+				printf("%d ", q->front->pageNumber);
+				q->front=q->front->next;	
+			}
+			return 0;
+		}
+		ReferencePage(q, hash, z);
+	}
 }
